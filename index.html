@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BSE.DEV - Belajar Coding dari Dasar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .code-block {
+            background: #1e1e1e;
+            border-radius: 8px;
+            padding: 16px;
+            color: #d4d4d4;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .html-tag { color: #569cd6; }
+        .css-property { color: #9cdcfe; }
+        .js-keyword { color: #c586c0; }
+        .string { color: #ce9178; }
+        
+        .progress-bar {
+            transition: width 0.5s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="gradient-bg text-white">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
+                        <span class="text-purple-600 font-bold text-lg">&lt;/&gt;</span>
+                    </div>
+                    <h1 class="text-xl font-bold">BSE.DEV</h1>
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#home" class="hover:text-purple-200 transition-colors">Beranda</a>
+                    <a href="#courses" class="hover:text-purple-200 transition-colors">Kursus</a>
+                    <a href="#practice" class="hover:text-purple-200 transition-colors">Latihan</a>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Hero Section -->
+        <div id="home" class="container mx-auto px-6 py-16 text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6">Belajar Coding dari Dasar</h2>
+            <p class="text-xl mb-8 text-purple-100 max-w-2xl mx-auto">
+                Mulai perjalanan coding Anda dengan HTML, CSS, dan JavaScript. 
+                Pembelajaran yang mudah dipahami untuk pemula.
+            </p>
+            <button onclick="scrollToSection('courses')" class="bg-white text-purple-600 px-8 py-3 rounded-lg font-semibold hover:bg-purple-50 transition-colors">
+                Mulai Belajar
+            </button>
+        </div>
+    </header>
+
+    <!-- Courses Section -->
+    <section id="courses" class="py-16">
+        <div class="container mx-auto px-6">
+            <h3 class="text-3xl font-bold text-center mb-12 text-gray-800">Pilih Bahasa Pemrograman</h3>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- HTML Card -->
+                <div class="bg-white rounded-xl p-6 shadow-lg card-hover cursor-pointer" onclick="showLesson('html')">
+                    <div class="w-16 h-16 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-2xl">🏗️</span>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-3 text-gray-800">HTML</h4>
+                    <p class="text-gray-600 mb-4">Pelajari struktur dasar website dengan HTML. Membuat elemen, tag, dan layout halaman web.</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-500">5 Pelajaran</span>
+                        <span class="text-orange-500 font-semibold">Pemula</span>
+                    </div>
+                </div>
+
+                <!-- CSS Card -->
+                <div class="bg-white rounded-xl p-6 shadow-lg card-hover cursor-pointer" onclick="showLesson('css')">
+                    <div class="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-2xl">🎨</span>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-3 text-gray-800">CSS</h4>
+                    <p class="text-gray-600 mb-4">Buat website yang indah dengan CSS. Styling, layout, animasi, dan responsive design.</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-500">6 Pelajaran</span>
+                        <span class="text-blue-500 font-semibold">Menengah</span>
+                    </div>
+                </div>
+
+                <!-- JavaScript Card -->
+                <div class="bg-white rounded-xl p-6 shadow-lg card-hover cursor-pointer" onclick="showLesson('javascript')">
+                    <div class="w-16 h-16 bg-yellow-100 rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-2xl">⚡</span>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-3 text-gray-800">JavaScript</h4>
+                    <p class="text-gray-600 mb-4">Tambahkan interaktivitas ke website dengan JavaScript. Variable, function, dan DOM manipulation.</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-500">7 Pelajaran</span>
+                        <span class="text-yellow-500 font-semibold">Lanjutan</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lesson Modal -->
+    <div id="lessonModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="p-6 border-b">
+                <div class="flex items-center justify-between">
+                    <h3 id="lessonTitle" class="text-2xl font-bold text-gray-800"></h3>
+                    <button onclick="closeLesson()" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+                </div>
+            </div>
+            
+            <div class="p-6">
+                <div id="lessonContent"></div>
+                
+                <!-- Progress Bar -->
+                <div class="mt-8">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-sm text-gray-600">Progress Pembelajaran</span>
+                        <span id="progressText" class="text-sm text-gray-600">0%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div id="progressBar" class="progress-bar bg-purple-600 h-2 rounded-full" style="width: 0%"></div>
+                    </div>
+                </div>
+                
+                <!-- Navigation Buttons -->
+                <div class="flex justify-between mt-6">
+                    <button id="prevBtn" onclick="previousLesson()" class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors" disabled>
+                        ← Sebelumnya
+                    </button>
+                    <button id="nextBtn" onclick="nextLesson()" class="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors">
+                        Selanjutnya →
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Practice Section -->
+    <section id="practice" class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h3 class="text-3xl font-bold text-center mb-12 text-gray-800">Coba Langsung</h3>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-gray-100 rounded-xl p-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Code Editor -->
+                        <div>
+                            <h4 class="text-lg font-semibold mb-3 text-gray-800">Tulis Kode HTML</h4>
+                            <textarea id="codeEditor" class="w-full h-64 p-4 border rounded-lg font-mono text-sm" placeholder="Tulis kode HTML di sini..."><!DOCTYPE html>
+<html>
+<head>
+    <title>Website Pertama Saya</title>
+</head>
+<body>
+    <h1>Halo Dunia!</h1>
+    <p>Ini adalah website pertama saya.</p>
+</body>
+</html>
+</textarea>
+                            <button onclick="runCode()" class="mt-3 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
+                                Jalankan Kode
+                            </button>
+                        </div>
+                        
+                        <!-- Preview -->
+                        <div>
+                            <h4 class="text-lg font-semibold mb-3 text-gray-800">Hasil</h4>
+                            <div class="border rounded-lg h-64 bg-white">
+                                <iframe id="preview" class="w-full h-full rounded-lg" frameborder="0"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-6 text-center">
+            <div class="flex items-center justify-center space-x-2 mb-4">
+                <div class="w-6 h-6 bg-purple-600 rounded flex items-center justify-center">
+                    <span class="text-white font-bold text-sm">&lt;/&gt;</span>
+                </div>
+                <span class="font-semibold">BSE.DEV</span>
+            </div>
+            <p class="text-gray-400">Belajar coding dengan mudah dan menyenangkan</p>
+        </div>
+    </footer>
+
+    <script>
+        let currentLanguage = '';
+        let currentLessonIndex = 0;
+        
+        const lessons = {
+            html: [
+                {
+                    title: "Pengenalan HTML",
+                    content: `
+                        <h4 class="text-lg font-semibold mb-3">Apa itu HTML?</h4>
+                        <p class="mb-4">HTML (HyperText Markup Language) adalah bahasa markup yang digunakan untuk membuat struktur halaman web.</p>
+                        
+                        <h5 class="font-semibold mb-2">Struktur Dasar HTML:</h5>
+                        <div class="code-block mb-4">
+                        <span class="html-tag">&lt;!DOCTYPE html&gt;</span>
+                        <span class="html-tag">&lt;html&gt;</span>
+                        <span class="html-tag">&lt;head&gt;</span>
+                            <span class="html-tag">&lt;title&gt;</span>Judul Halaman<span class="html-tag">&lt;/title&gt;</span>
+                        <span class="html-tag">&lt;/head&gt;</span>
+                        <span class="html-tag">&lt;body&gt;</span>
+                            <span class="html-tag">&lt;h1&gt;</span>Heading Utama<span class="html-tag">&lt;/h1&gt;</span>
+                            <span class="html-tag">&lt;p&gt;</span>Ini adalah paragraf.<span class="html-tag">&lt;/p&gt;</span>
+                        <span class="html-tag">&lt;/body&gt;</span>
+                        <span class="html-tag">&lt;/html&gt;</span>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <p class="text-blue-800"><strong>Tips:</strong> Setiap tag HTML harus ditutup dengan tag penutup yang sesuai.</p>
+                        </div>
+                    `
+                },
+                {
+                    title: "Tag HTML Dasar",
+                    content: `
+                        <h4 class="text-lg font-semibold mb-3">Tag-tag Penting dalam HTML</h4>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <h5 class="font-semibold">Heading (Judul)</h5>
+                                <div class="code-block">
+                    <span class="html-tag">&lt;h1&gt;</span>Judul Utama<span class="html-tag">&lt;/h1&gt;</span>
+                    <span class="html-tag">&lt;h2&gt;</span>Sub Judul<span class="html-tag">&lt;/h2&gt;</span>
+                    <span class="html-tag">&lt;h3&gt;</span>Sub Sub Judul<span class="html-tag">&lt;/h3&gt;</span>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h5 class="font-semibold">Paragraf dan Teks</h5>
+                                <div class="code-block">
+                    <span class="html-tag">&lt;p&gt;</span>Ini adalah paragraf.<span class="html-tag">&lt;/p&gt;</span>
+                    <span class="html-tag">&lt;strong&gt;</span>Teks tebal<span class="html-tag">&lt;/strong&gt;</span>
+                    <span class="html-tag">&lt;em&gt;</span>Teks miring<span class="html-tag">&lt;/em&gt;</span>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h5 class="font-semibold">Link dan Gambar</h5>
+                                <div class="code-block">
+                    <span class="html-tag">&lt;a href=<span class="string">"https://example.com"</span>&gt;</span>Link ke website<span class="html-tag">&lt;/a&gt;</span>
+                    <span class="html-tag">&lt;img src=<span class="string">"gambar.jpg"</span> alt=<span class="string">"Deskripsi gambar"</span>&gt;</span>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                }
+            ],
+            css: [
+                {
+                    title: "Pengenalan CSS",
+                    content: `
+                        <h4 class="text-lg font-semibold mb-3">Apa itu CSS?</h4>
+                        <p class="mb-4">CSS (Cascading Style Sheets) digunakan untuk mengatur tampilan dan layout halaman web.</p>
+                        
+                        <h5 class="font-semibold mb-2">Cara Menulis CSS:</h5>
+                        <div class="code-block mb-4">
+<span class="css-property">h1</span> {
+    <span class="css-property">color</span>: <span class="string">blue</span>;
+    <span class="css-property">font-size</span>: <span class="string">24px</span>;
+    <span class="css-property">text-align</span>: <span class="string">center</span>;
+}
+
+<span class="css-property">.my-class</span> {
+    <span class="css-property">background-color</span>: <span class="string">#f0f0f0</span>;
+    <span class="css-property">padding</span>: <span class="string">20px</span>;
+}
+                        </div>
+                        
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <p class="text-green-800"><strong>Tips:</strong> CSS menggunakan selector untuk memilih elemen HTML yang akan diberi style.</p>
+                        </div>
+                    `
+                },
+                {
+                    title: "Selector dan Properties",
+                    content: `
+                        <h4 class="text-lg font-semibold mb-3">Jenis-jenis Selector CSS</h4>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <h5 class="font-semibold">Element Selector</h5>
+                                <div class="code-block">
+<span class="css-property">p</span> {
+    <span class="css-property">color</span>: <span class="string">red</span>;
+}
+                                </div>
+                                <p class="text-sm text-gray-600 mt-1">Memilih semua elemen &lt;p&gt;</p>
+                            </div>
+                            
+                            <div>
+                                <h5 class="font-semibold">Class Selector</h5>
+                                <div class="code-block">
+<span class="css-property">.highlight</span> {
+    <span class="css-property">background-color</span>: <span class="string">yellow</span>;
+}
+                                </div>
+                                <p class="text-sm text-gray-600 mt-1">Memilih elemen dengan class="highlight"</p>
+                            </div>
+                            
+                            <div>
+                                <h5 class="font-semibold">ID Selector</h5>
+                                <div class="code-block">
+<span class="css-property">#header</span> {
+    <span class="css-property">font-size</span>: <span class="string">32px</span>;
+}
+                                </div>
+                                <p class="text-sm text-gray-600 mt-1">Memilih elemen dengan id="header"</p>
+                            </div>
+                        </div>
+                    `
+                }
+            ],
+            javascript: [
+                {
+                    title: "Pengenalan JavaScript",
+                    content: `
+                        <h4 class="text-lg font-semibold mb-3">Apa itu JavaScript?</h4>
+                        <p class="mb-4">JavaScript adalah bahasa pemrograman yang membuat website menjadi interaktif dan dinamis.</p>
+                        
+                        <h5 class="font-semibold mb-2">Contoh JavaScript Dasar:</h5>
+                        <div class="code-block mb-4">
+<span class="js-keyword">var</span> nama = <span class="string">"Budi"</span>;
+<span class="js-keyword">var</span> umur = <span class="string">25</span>;
+
+<span class="js-keyword">function</span> <span class="css-property">sapa</span>() {
+    alert(<span class="string">"Halo, nama saya "</span> + nama);
+}
+
+<span class="css-property">sapa</span>();
+                        </div>
+                        
+                        <div class="bg-yellow-50 p-4 rounded-lg">
+                            <p class="text-yellow-800"><strong>Tips:</strong> JavaScript dapat mengubah konten HTML dan merespons interaksi pengguna.</p>
+                        </div>
+                    `
+                },
+                {
+                    title: "Variable dan Function",
+                    content: `
+                        <h4 class="text-lg font-semibold mb-3">Variable dan Function dalam JavaScript</h4>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <h5 class="font-semibold">Membuat Variable</h5>
+                                <div class="code-block">
+<span class="js-keyword">let</span> pesan = <span class="string">"Halo Dunia!"</span>;
+<span class="js-keyword">const</span> PI = <span class="string">3.14</span>;
+<span class="js-keyword">var</span> angka = <span class="string">42</span>;
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h5 class="font-semibold">Membuat Function</h5>
+                                <div class="code-block">
+<span class="js-keyword">function</span> <span class="css-property">tambah</span>(a, b) {
+    <span class="js-keyword">return</span> a + b;
+}
+
+<span class="js-keyword">let</span> hasil = <span class="css-property">tambah</span>(<span class="string">5</span>, <span class="string">3</span>);
+console.log(hasil); <span class="string">// Output: 8</span>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                }
+            ]
+        };
+
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        }
+
+        function showLesson(language) {
+            currentLanguage = language;
+            currentLessonIndex = 0;
+            
+            const modal = document.getElementById('lessonModal');
+            modal.classList.remove('hidden');
+            
+            updateLesson();
+        }
+
+        function closeLesson() {
+            document.getElementById('lessonModal').classList.add('hidden');
+        }
+
+        function updateLesson() {
+            const lesson = lessons[currentLanguage][currentLessonIndex];
+            const totalLessons = lessons[currentLanguage].length;
+            
+            document.getElementById('lessonTitle').textContent = lesson.title;
+            document.getElementById('lessonContent').innerHTML = lesson.content;
+            
+            // Update progress
+            const progress = ((currentLessonIndex + 1) / totalLessons) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+            document.getElementById('progressText').textContent = Math.round(progress) + '%';
+            
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentLessonIndex === 0;
+            document.getElementById('nextBtn').textContent = 
+                currentLessonIndex === totalLessons - 1 ? 'Selesai' : 'Selanjutnya →';
+        }
+
+        function nextLesson() {
+            const totalLessons = lessons[currentLanguage].length;
+            
+            if (currentLessonIndex < totalLessons - 1) {
+                currentLessonIndex++;
+                updateLesson();
+            } else {
+                alert('Selamat! Anda telah menyelesaikan semua pelajaran ' + currentLanguage.toUpperCase() + '!');
+                closeLesson();
+            }
+        }
+
+        function previousLesson() {
+            if (currentLessonIndex > 0) {
+                currentLessonIndex--;
+                updateLesson();
+            }
+        }
+
+        function runCode() {
+            const code = document.getElementById('codeEditor').value;
+            const preview = document.getElementById('preview');
+            
+            const blob = new Blob([code], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            
+            preview.src = url;
+        }
+
+        // Initialize code preview
+        window.onload = function() {
+            runCode();
+        };
+
+        // Close modal when clicking outside
+        document.getElementById('lessonModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeLesson();
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'976cc2fcb2b6cec2',t:'MTc1NjQ3Nzk4Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
